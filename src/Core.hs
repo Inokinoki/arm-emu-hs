@@ -3,6 +3,16 @@ module Core where
 import Data.Word
 import Data.Bits
 
+-- Mode:
+-- 10000 : User Mode
+-- 10001 : FIQ Mode
+-- 10010 : IRQ Mode
+-- 10011 : Supervisor Mode
+-- 10111 : Abort Mode
+-- 11011 : Undefined Mode
+-- 11111 : System Mode
+
+
 type Register = Word32
 
 data Core = Core {

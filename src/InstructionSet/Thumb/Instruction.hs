@@ -38,3 +38,8 @@ module InstructionSet.Thumb.Instruction where
 
 --  Unconditional branch        18      | 1 | 1 | 1 | 0 | 0 |                Offset11                   |
 --  Long branch with link       19      | 1 | 1 | 1 | 1 | H |                 Offset                    |
+
+
+-- Register Access:
+--  No direct access to CPSR/SPSR (MSR/MRS does not exist)
+--  Thumb is flagged by the T bit (bit[5]) in CPSR -> T == 1
