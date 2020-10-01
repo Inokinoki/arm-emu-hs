@@ -23,6 +23,7 @@ library
   exposed-modules:     Core
                      , ExceptionTable
                      , Memory
+                     , InstructionSet.Thumb.Instruction
   build-depends:       base >= 4.4 && < 5
   default-language:    Haskell2010
 
