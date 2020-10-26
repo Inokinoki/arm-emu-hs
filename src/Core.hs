@@ -15,7 +15,7 @@ import Data.Bits
 
 type Register = Word32
 
-data Core = Core {
+data Core = InstallCore {
   r0        :: Register,
   r1        :: Register,
   r2        :: Register,
