@@ -1,7 +1,9 @@
 module Memory where
 
-import Data.Word
-import Data.Bits
+import Address
+import ExceptionTable
 
--- An ARM7 32bit processor and 32bit address space
-type Address = Word32
+data Memory = InstallMemory {
+    exceptionTable  :: ExceptionTable
+    -- TODO: add the other memory zone
+}

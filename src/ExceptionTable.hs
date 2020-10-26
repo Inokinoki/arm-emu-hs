@@ -1,6 +1,6 @@
 module ExceptionTable where
 
-import Memory
+import Address
 
 -- Exception table, should be loaded into 0x00000000
 data ExceptionTable = ExceptionTable {
