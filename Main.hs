@@ -4,6 +4,18 @@ import Core
 import Memory
 import Machine
 import ExceptionTable
+import Data.Word
+import Instruction
+
+import qualified Control.Exception as Exc
+
+-- wrappers for test purpose
+word32FromInteger :: Integer -> Word32
+word32FromInteger x = fromInteger x
+
+word16FromInteger :: Integer -> Word16
+word16FromInteger x = fromInteger x
+-- end
 
 main :: IO ()
 main = do
@@ -32,4 +44,11 @@ main = do
     let i = fetch m
     let op = decode m i
     let m2 = execute m op
+
+    -- test decoding
+    let word32 = word32FromInteger 114514
+    let decoded32 = decodeWord word32
+    let word16 = word16FromInteger 114
+    let decoded16 = decodeWord word16
+
     putStrLn "Hello, ARM Core!"

@@ -24,6 +24,8 @@ library
                      , ExceptionTable
                      , Memory
                      , Machine
+                     , Instruction
+                     , Address
   build-depends:       base >= 4.4 && < 5
   default-language:    Haskell2010
 
