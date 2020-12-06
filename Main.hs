@@ -6,6 +6,7 @@ import Machine
 import ExceptionTable
 import Data.Word
 import Instruction
+import InstructionSet.Decode
 
 import qualified Control.Exception as Exc
 

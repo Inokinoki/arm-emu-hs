@@ -25,6 +25,9 @@ library
                      , Memory
                      , Machine
                      , Instruction
+                     , InstructionSet.Decode
+                     , InstructionSet.Thumb.Instruction
+                     , InstructionSet.ARM.Instruction
                      , Address
   build-depends:       base >= 4.4 && < 5
   default-language:    Haskell2010
