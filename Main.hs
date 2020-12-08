@@ -31,13 +31,13 @@ main = do
         },
         memory = InstallMemory {
             exceptionTable = ExceptionTable {
-                reset_Hanlder                   = 0,
-                undefinedInstruction_Hanlder    = 0,
-                softwareInterrupt_Hanlder       = 0,
-                prefetchAbort_Hanlder           = 0,
-                dataAbort_Hanlder               = 0,
-                irq_Hanlder                     = 0,
-                fiq_Hanlder                     = 0
+                reset_Handler                   = 0,
+                undefinedInstruction_Handler    = 0,
+                softwareInterrupt_Handler       = 0,
+                prefetchAbort_Handler           = 0,
+                dataAbort_Handler               = 0,
+                irq_Handler                     = 0,
+                fiq_Handler                     = 0
             }
         }
     }
