@@ -13,7 +13,7 @@ import InstructionSet.ARM.Instruction
 decodeARM :: Word32 -> Maybe Instruction
 decodeARM x
     | (x .&. 0x0E000000) == 0x0A000000 = decodeBranch x -- d decodeB
-    | (x .&. 0x0FFFFFF0) == 0x012FFF10 = Nothing -- d decodeBX
+    | (x .&. 0x0FFFFFF0) == 0x012FFF10 = decodeBranchExchange x -- d decodeBX
     | (x .&. 0x0DE00000) == 0x00000000 = decodeDataProcessing x -- d decodeAND
     | (x .&. 0x0DE00000) == 0x00200000 = decodeDataProcessing x -- d decodeEOR
     | (x .&. 0x0DE00000) == 0x00400000 = decodeDataProcessing x -- d decodeSUB
