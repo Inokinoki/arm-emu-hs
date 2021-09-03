@@ -42,15 +42,15 @@ decodeARM x
     | (x .&. 0x0C500000) == 0x04100000 = decodeLoadStoreWithOffset x -- d decodeLDR
     | (x .&. 0x0C500000) == 0x04500000 = decodeLoadStoreWithOffset x -- d decodeLDRB
     | (x .&. 0x0D700000) == 0x04700000 = decodeLoadStoreWithOffset x -- d decodeLDRBT
-    | (x .&. 0x0E1000F0) == 0x001000B0 = Nothing -- d decodeLDRH
-    | (x .&. 0x0D700000) == 0x04300000 = Nothing -- d decodeLDRT
-    | (x .&. 0x0E1000F0) == 0x001000D0 = Nothing -- d decodeLDRSB
-    | (x .&. 0x0E1000F0) == 0x001000F0 = Nothing -- d decodeLDRSH
+    | (x .&. 0x0E1000F0) == 0x001000B0 = decodeLoadStoreMisc x -- d decodeLDRH
+    | (x .&. 0x0D700000) == 0x04300000 = decodeLoadStoreWithOffset x -- d decodeLDRT
+    | (x .&. 0x0E1000F0) == 0x001000D0 = decodeLoadStoreMisc x -- d decodeLDRSB
+    | (x .&. 0x0E1000F0) == 0x001000F0 = decodeLoadStoreMisc x -- d decodeLDRSH
     | (x .&. 0x0C500000) == 0x04000000 = decodeLoadStoreWithOffset x -- d decodeSTR
     | (x .&. 0x0D700000) == 0x04200000 = decodeLoadStoreWithOffset x -- d decodeSTRT
     | (x .&. 0x0C500000) == 0x04400000 = decodeLoadStoreWithOffset x -- d decodeSTRB
     | (x .&. 0x0D700000) == 0x04600000 = decodeLoadStoreWithOffset x -- d decodeSTRBT
-    | (x .&. 0x0E1000F0) == 0x000000B0 = Nothing -- d decodeSTRH
+    | (x .&. 0x0E1000F0) == 0x000000B0 = decodeLoadStoreMisc x -- d decodeSTRH
     | (x .&. 0x0E500000) == 0x08100000 = decodeLoadStoreMultiple x -- d decodeLDM1
     | (x .&. 0x0E708000) == 0x08500000 = decodeLoadStoreMultiple x -- d decodeLDM2
     | (x .&. 0x0E508000) == 0x08508000 = decodeLoadStoreMultiple x -- d decodeLDM3
