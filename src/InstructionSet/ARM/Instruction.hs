@@ -21,3 +21,20 @@ decodeDataProcessing x
     | x .&. 0x0E000000 == 0x00000000 = Nothing
     | x .&. 0x0E000000 == 0x02000000 = Nothing
     | otherwise = error $ "Undefined ARM Data Processing instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Load/Store Immediate Offset:    |    cond[1]    | 0 | 1 | 0 | P | U | B | W | L |       Rn      |       Rd      |                  Immediate                    |
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Load/Store Register Offset:     |    cond[1]    | 0 | 1 | 1 |     opcode    | S |       Rn      |       Rd      |    shift amount   | shift | 0 |       Rm      |
+decodeLoadStoreWithOffset :: Word32 -> Maybe Instruction
+decodeLoadStoreWithOffset x
+    | x .&. 0x0E000000 == 0x04000000 = Nothing
+    | x .&. 0x0E000000 == 0x06000000 = Nothing
+    | otherwise = error $ "Undefined ARM Load/Store instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Load/Store Multiple:            |    cond[1]    | 1 | 0 | 0 | P | U | B | W | L |       Rn      |                      Register List                            |
+decodeLoadStoreMultiple :: Word32 -> Maybe Instruction
+decodeLoadStoreMultiple x
+    | x .&. 0x0E000000 == 0x08000000 = Nothing
+    | otherwise = error $ "Undefined ARM Load/Store Multiple instruction: " ++ showHex x ""
