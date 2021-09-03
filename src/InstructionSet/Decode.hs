@@ -134,6 +134,6 @@ class Decode a where
 instance Decode Word32 where
     decodeWord x = decodeARM x
 
--- implement decode method for Word32 as decodeWord THUMB
+-- implement decode method for Word16 as decodeWord THUMB
 instance Decode Word16 where
     decodeWord x = decodeThumb x
