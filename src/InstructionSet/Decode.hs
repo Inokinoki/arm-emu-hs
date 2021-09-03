@@ -14,22 +14,22 @@ decodeARM :: Word32 -> Maybe Instruction
 decodeARM x
     | (x .&. 0x0E000000) == 0x0A000000 = Nothing -- d decodeB
     | (x .&. 0x0FFFFFF0) == 0x012FFF10 = Nothing -- d decodeBX
-    | (x .&. 0x0DE00000) == 0x00000000 = Nothing -- d decodeAND
-    | (x .&. 0x0DE00000) == 0x00200000 = Nothing -- d decodeEOR
-    | (x .&. 0x0DE00000) == 0x00400000 = Nothing -- d decodeSUB
-    | (x .&. 0x0DE00000) == 0x00600000 = Nothing -- d decodeRSB
-    | (x .&. 0x0DE00000) == 0x00800000 = Nothing -- d decodeADD
-    | (x .&. 0x0DE00000) == 0x00A00000 = Nothing -- d decodeADC
-    | (x .&. 0x0DE00000) == 0x00C00000 = Nothing -- d decodeSBC
-    | (x .&. 0x0DE00000) == 0x00E00000 = Nothing -- d decodeRSC
-    | (x .&. 0x0DE0F000) == 0x01000000 = Nothing -- d decodeTST
-    | (x .&. 0x0DE0F000) == 0x01200000 = Nothing -- d decodeTEQ
-    | (x .&. 0x0DE0F000) == 0x01400000 = Nothing -- d decodeCMP
-    | (x .&. 0x0DE0F000) == 0x01600000 = Nothing -- d decodeCMN
-    | (x .&. 0x0DE00000) == 0x01800000 = Nothing -- d decodeORR
-    | (x .&. 0x0DEF0000) == 0x01A00000 = Nothing -- d decodeMOV
-    | (x .&. 0x0DE00000) == 0x01C00000 = Nothing -- d decodeBIC
-    | (x .&. 0x0DEF0000) == 0x01E00000 = Nothing -- d decodeMVN
+    | (x .&. 0x0DE00000) == 0x00000000 = decodeDataProcessing x -- d decodeAND
+    | (x .&. 0x0DE00000) == 0x00200000 = decodeDataProcessing x -- d decodeEOR
+    | (x .&. 0x0DE00000) == 0x00400000 = decodeDataProcessing x -- d decodeSUB
+    | (x .&. 0x0DE00000) == 0x00600000 = decodeDataProcessing x -- d decodeRSB
+    | (x .&. 0x0DE00000) == 0x00800000 = decodeDataProcessing x -- d decodeADD
+    | (x .&. 0x0DE00000) == 0x00A00000 = decodeDataProcessing x -- d decodeADC
+    | (x .&. 0x0DE00000) == 0x00C00000 = decodeDataProcessing x -- d decodeSBC
+    | (x .&. 0x0DE00000) == 0x00E00000 = decodeDataProcessing x -- d decodeRSC
+    | (x .&. 0x0DE0F000) == 0x01000000 = decodeDataProcessing x -- d decodeTST
+    | (x .&. 0x0DE0F000) == 0x01200000 = decodeDataProcessing x -- d decodeTEQ
+    | (x .&. 0x0DE0F000) == 0x01400000 = decodeDataProcessing x -- d decodeCMP
+    | (x .&. 0x0DE0F000) == 0x01600000 = decodeDataProcessing x -- d decodeCMN
+    | (x .&. 0x0DE00000) == 0x01800000 = decodeDataProcessing x -- d decodeORR
+    | (x .&. 0x0DEF0000) == 0x01A00000 = decodeDataProcessing x -- d decodeMOV
+    | (x .&. 0x0DE00000) == 0x01C00000 = decodeDataProcessing x -- d decodeBIC
+    | (x .&. 0x0DEF0000) == 0x01E00000 = decodeDataProcessing x -- d decodeMVN
     | (x .&. 0x0FE000F0) == 0x00000090 = Nothing -- d decodeMUL
     | (x .&. 0x0FE000F0) == 0x00200090 = Nothing -- d decodeMLA
     | (x .&. 0x0FE000F0) == 0x00C00090 = Nothing -- d decodeSMULL
@@ -39,23 +39,23 @@ decodeARM x
     | (x .&. 0x0FBF0FFF) == 0x010F0000 = Nothing -- d decodeMRS
     | (x .&. 0x0FB0F000) == 0x0320F000 = Nothing -- d decodeMSR_immediate
     | (x .&. 0x0FB0FFF0) == 0x0120F000 = Nothing -- d decodeMSR_register
-    | (x .&. 0x0C500000) == 0x04100000 = Nothing -- d decodeLDR
-    | (x .&. 0x0C500000) == 0x04500000 = Nothing -- d decodeLDRB
-    | (x .&. 0x0D700000) == 0x04700000 = Nothing -- d decodeLDRBT
+    | (x .&. 0x0C500000) == 0x04100000 = decodeLoadStoreWithOffset x -- d decodeLDR
+    | (x .&. 0x0C500000) == 0x04500000 = decodeLoadStoreWithOffset x -- d decodeLDRB
+    | (x .&. 0x0D700000) == 0x04700000 = decodeLoadStoreWithOffset x -- d decodeLDRBT
     | (x .&. 0x0E1000F0) == 0x001000B0 = Nothing -- d decodeLDRH
     | (x .&. 0x0D700000) == 0x04300000 = Nothing -- d decodeLDRT
     | (x .&. 0x0E1000F0) == 0x001000D0 = Nothing -- d decodeLDRSB
     | (x .&. 0x0E1000F0) == 0x001000F0 = Nothing -- d decodeLDRSH
-    | (x .&. 0x0C500000) == 0x04000000 = Nothing -- d decodeSTR
-    | (x .&. 0x0D700000) == 0x04200000 = Nothing -- d decodeSTRT
-    | (x .&. 0x0C500000) == 0x04400000 = Nothing -- d decodeSTRB
-    | (x .&. 0x0D700000) == 0x04600000 = Nothing -- d decodeSTRBT
+    | (x .&. 0x0C500000) == 0x04000000 = decodeLoadStoreWithOffset x -- d decodeSTR
+    | (x .&. 0x0D700000) == 0x04200000 = decodeLoadStoreWithOffset x -- d decodeSTRT
+    | (x .&. 0x0C500000) == 0x04400000 = decodeLoadStoreWithOffset x -- d decodeSTRB
+    | (x .&. 0x0D700000) == 0x04600000 = decodeLoadStoreWithOffset x -- d decodeSTRBT
     | (x .&. 0x0E1000F0) == 0x000000B0 = Nothing -- d decodeSTRH
-    | (x .&. 0x0E500000) == 0x08100000 = Nothing -- d decodeLDM1
-    | (x .&. 0x0E708000) == 0x08500000 = Nothing -- d decodeLDM2
-    | (x .&. 0x0E508000) == 0x08508000 = Nothing -- d decodeLDM3
-    | (x .&. 0x0E500000) == 0x08000000 = Nothing -- d decodeSTM1
-    | (x .&. 0x0E700000) == 0x08400000 = Nothing -- d decodeSTM2
+    | (x .&. 0x0E500000) == 0x08100000 = decodeLoadStoreMultiple x -- d decodeLDM1
+    | (x .&. 0x0E708000) == 0x08500000 = decodeLoadStoreMultiple x -- d decodeLDM2
+    | (x .&. 0x0E508000) == 0x08508000 = decodeLoadStoreMultiple x -- d decodeLDM3
+    | (x .&. 0x0E500000) == 0x08000000 = decodeLoadStoreMultiple x -- d decodeSTM1
+    | (x .&. 0x0E700000) == 0x08400000 = decodeLoadStoreMultiple x -- d decodeSTM2
     | otherwise = error $ "Unimplemented decodeARM"
 
 -- decode Thumb
