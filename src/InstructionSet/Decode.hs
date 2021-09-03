@@ -30,12 +30,12 @@ decodeARM x
     | (x .&. 0x0DEF0000) == 0x01A00000 = decodeDataProcessing x -- d decodeMOV
     | (x .&. 0x0DE00000) == 0x01C00000 = decodeDataProcessing x -- d decodeBIC
     | (x .&. 0x0DEF0000) == 0x01E00000 = decodeDataProcessing x -- d decodeMVN
-    | (x .&. 0x0FE000F0) == 0x00000090 = Nothing -- d decodeMUL
-    | (x .&. 0x0FE000F0) == 0x00200090 = Nothing -- d decodeMLA
-    | (x .&. 0x0FE000F0) == 0x00C00090 = Nothing -- d decodeSMULL
-    | (x .&. 0x0FE000F0) == 0x00800090 = Nothing -- d decodeUMULL
-    | (x .&. 0x0FE000F0) == 0x00E00090 = Nothing -- d decodeSMLAL
-    | (x .&. 0x0FE000F0) == 0x00A00090 = Nothing -- d decodeUMLAL
+    | (x .&. 0x0FE000F0) == 0x00000090 = decodeMultiplyAccumulate x -- d decodeMUL
+    | (x .&. 0x0FE000F0) == 0x00200090 = decodeMultiplyAccumulate x -- d decodeMLA
+    | (x .&. 0x0FE000F0) == 0x00C00090 = decodeMultiplyAccumulate x -- d decodeSMULL
+    | (x .&. 0x0FE000F0) == 0x00800090 = decodeMultiplyAccumulate x -- d decodeUMULL
+    | (x .&. 0x0FE000F0) == 0x00E00090 = decodeMultiplyAccumulate x -- d decodeSMLAL
+    | (x .&. 0x0FE000F0) == 0x00A00090 = decodeMultiplyAccumulate x -- d decodeUMLAL
     | (x .&. 0x0FBF0FFF) == 0x010F0000 = Nothing -- d decodeMRS
     | (x .&. 0x0FB0F000) == 0x0320F000 = Nothing -- d decodeMSR_immediate
     | (x .&. 0x0FB0FFF0) == 0x0120F000 = Nothing -- d decodeMSR_register

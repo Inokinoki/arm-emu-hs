@@ -55,3 +55,12 @@ decodeBranch x
     | x .&. 0x0E0000D0 == 0x0A000000  = Nothing
     | x .&. 0xFE0000D0 == 0xFA000000  = Nothing
     | otherwise = error $ "Undefined ARM Branch instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Multiply (accumulate):          |    cond[1]    | 0   0   0   0 | 0   0 | A | S |       Rd      |       Rn      |       Rs      | 1   0   0   1 |       Rm      |
+--  Multiply (accumulate) long:     |    cond[1]    | 0   0   0   0 | 1 | U | A | S |       Rd      |       Rn      |       Rs      | 1   0   0   1 |       Rm      |
+decodeMultiplyAccumulate :: Word32 -> Maybe Instruction
+decodeMultiplyAccumulate x
+    | x .&. 0x0FC000F0 == 0x00000090  = Nothing
+    | x .&. 0x0F8000F0 == 0x00800090  = Nothing
+    | otherwise = error $ "Undefined ARM Multiply Accumulate instruction: " ++ showHex x ""
