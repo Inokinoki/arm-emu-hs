@@ -26,6 +26,7 @@ library
                      , Machine
                      , Instruction
                      , InstructionSet.Decode
+                     , InstructionSet.Instruction
                      , InstructionSet.Thumb.Instruction
                      , InstructionSet.ARM.Instruction
                      , Address

@@ -3,8 +3,17 @@ module Instruction where
 import Data.Word
 import Data.Bits
 
--- TODO: replace with the implementations in Instruction Set
-type ThumbInstruction   =   Word16
-type ARMInstruction     =   Word32
+import InstructionSet.Instruction
+
+-- The implementations are in Instruction Set
+data ThumbInstruction = MakeThumbInstruction {
+    thumbOrigin :: Word16,
+    thumbISA    :: Maybe DecodedThumbInstruction
+}
+
+data ARMInstruction = MakeARMInstruction {
+    armOrigin   :: Word32,
+    armISA      :: Maybe DecodedARMInstruction
+}
 
 data Instruction = ThumbInstruction | ARMInstruction

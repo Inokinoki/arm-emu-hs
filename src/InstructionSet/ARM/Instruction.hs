@@ -6,6 +6,8 @@ import Data.Word
 
 import Instruction
 
+import InstructionSet.Instruction
+
 -- Debug purpose, wait to be replaced
 -- type Instruction = [Char]
 
