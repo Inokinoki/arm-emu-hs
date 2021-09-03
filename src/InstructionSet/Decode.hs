@@ -36,9 +36,9 @@ decodeARM x
     | (x .&. 0x0FE000F0) == 0x00800090 = decodeMultiplyAccumulate x -- d decodeUMULL
     | (x .&. 0x0FE000F0) == 0x00E00090 = decodeMultiplyAccumulate x -- d decodeSMLAL
     | (x .&. 0x0FE000F0) == 0x00A00090 = decodeMultiplyAccumulate x -- d decodeUMLAL
-    | (x .&. 0x0FBF0FFF) == 0x010F0000 = Nothing -- d decodeMRS
-    | (x .&. 0x0FB0F000) == 0x0320F000 = Nothing -- d decodeMSR_immediate
-    | (x .&. 0x0FB0FFF0) == 0x0120F000 = Nothing -- d decodeMSR_register
+    | (x .&. 0x0FBF0FFF) == 0x010F0000 = decodeMRS x -- d decodeMRS
+    | (x .&. 0x0FB0F000) == 0x0320F000 = decodeMSRImmediate x -- d decodeMSR_immediate
+    | (x .&. 0x0FB0FFF0) == 0x0120F000 = decodeMSRRegister x -- d decodeMSR_register
     | (x .&. 0x0C500000) == 0x04100000 = decodeLoadStoreWithOffset x -- d decodeLDR
     | (x .&. 0x0C500000) == 0x04500000 = decodeLoadStoreWithOffset x -- d decodeLDRB
     | (x .&. 0x0D700000) == 0x04700000 = decodeLoadStoreWithOffset x -- d decodeLDRBT

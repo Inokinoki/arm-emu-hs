@@ -71,3 +71,24 @@ decodeMultiplyAccumulate x
     | x .&. 0x0FC000F0 == 0x00000090  = Nothing
     | x .&. 0x0F8000F0 == 0x00800090  = Nothing
     | otherwise = error $ "Undefined ARM Multiply Accumulate instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Move Immediate to status reg:   |    cond[1]    | 0   0   1 | 1   0 | R | 1   0 |      Mask     |      SBO      |     rotate    |           Immediate           |
+decodeMSRImmediate :: Word32 -> Maybe Instruction
+decodeMSRImmediate x
+    | x .&. 0x0FB00000 == 0x03200000  = Nothing
+    | otherwise = error $ "Undefined ARM MSR immediate instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Move reg to status reg:         |    cond[1]    | 0   0   0   1   0 | R | 1 | 0 |      Mask     |      SBO      |      SBZ      | 0   0   0   0 |       Rm      |
+decodeMSRRegister :: Word32 -> Maybe Instruction
+decodeMSRRegister x
+    | x .&. 0x0FB000F0 == 0x01200000  = Nothing
+    | otherwise = error $ "Undefined ARM MSR reg instruction: " ++ showHex x ""
+
+--                          Format  |31 |30 |29 |28 |27 |26 |25 |24 |23 |22 |21 |20 |19 |18 |17 |16 |15 |14 |13 |12 |11 |10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+--  Move status reg to reg:         |    cond[1]    | 0   0   0   1   0 | R | 0 | 0 |      SBO      |       Rd      |      SBZ      | 0   0   0   0 |      SBZ      |
+decodeMRS :: Word32 -> Maybe Instruction
+decodeMRS x
+    | x .&. 0x0FB000F0 == 0x01000000  = Nothing
+    | otherwise = error $ "Undefined ARM MRS instruction: " ++ showHex x ""
