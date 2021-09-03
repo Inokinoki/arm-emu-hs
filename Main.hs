@@ -35,14 +35,14 @@ main = do
             r8_fiq = 0, r9_fiq = 0, r10_fiq = 0, r11_fiq = 0, r12_fiq = 0, r13_fiq = 0, r14_fiq = 0
         },
         memory = InstallMemory {
-            exceptionTable = ExceptionTable {
-                reset_Handler                   = 0,
-                undefinedInstruction_Handler    = 0,
-                softwareInterrupt_Handler       = 0,
-                prefetchAbort_Handler           = 0,
-                dataAbort_Handler               = 0,
-                irq_Handler                     = 0,
-                fiq_Handler                     = 0
+            exceptionTable = ExceptionVector {
+                reset_handler                   = 0,
+                undefinedInstruction_handler    = 0,
+                softwareInterrupt_handler       = 0,
+                prefetchAbort_handler           = 0,
+                dataAbort_handler               = 0,
+                irq_handler                     = 0,
+                fiq_handler                     = 0
             }
         }
     }

@@ -2,15 +2,15 @@ module ExceptionTable where
 
 import Address
 
--- Exception table, should be loaded into 0x00000000
-data ExceptionTable = ExceptionTable {
-    reset_Handler                   :: Address,
-    undefinedInstruction_Handler    :: Address,
-    softwareInterrupt_Handler       :: Address,
-    prefetchAbort_Handler           :: Address,
-    dataAbort_Handler               :: Address,
-    irq_Handler                     :: Address,
-    fiq_Handler                     :: Address
+-- Exception Vector, should be loaded into 0x00000000
+data ExceptionVector = ExceptionVector {
+    reset_handler                   :: Address,
+    undefinedInstruction_handler    :: Address,
+    softwareInterrupt_handler       :: Address,
+    prefetchAbort_handler           :: Address,
+    dataAbort_handler               :: Address,
+    irq_handler                     :: Address,
+    fiq_handler                     :: Address
 } deriving (Eq, Show)
 
 -- Exception type

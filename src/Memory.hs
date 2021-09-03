@@ -4,6 +4,6 @@ import Address
 import ExceptionTable
 
 data Memory = InstallMemory {
-    exceptionTable  :: ExceptionTable
+    exceptionTable  :: ExceptionVector
     -- TODO: add the other memory zone
 }
