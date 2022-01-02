@@ -53,4 +53,4 @@ data Core = InstallCore {
   r12_fiq   :: Register,
   r13_fiq   :: Register,
   r14_fiq   :: Register
-} deriving (Eq)
+} deriving (Eq, Show)
