@@ -44,6 +44,7 @@ main = do
                 irq_handler                     = 0,
                 fiq_handler                     = 0
             }
+            -- TODO: Add ram field initialization
         }
     }
     -- A cycle
